@@ -87,20 +87,20 @@ if(isSPresent == true){
 
 // 4. IMPLEMENTING -N COMMAND
 function ncommand(){
-    let isNPresent = optionsArr.includes("-n");
-      if(isNPresent == true){
+    // let isNPresent = optionsArr.includes("-n");
+    //   if(isNPresent == true){
       for(let i = 0 ; i < contentArr.length ; i++){
           contentArr[i] = `${i + 1} ${contentArr[i]} `;
         }
         console.log("AFTER IMPLEMENTING -N COMMAND");
         console.log(contentArr.join("\n"));
      }
-}
+// }
 
 // 5 . IMPLEMENTING -B COMMAND
 function bcommand(){
-    let isBPresent = optionsArr.includes("-b");
-    if(isBPresent == true){
+    // let isBPresent = optionsArr.includes("-b");
+    // if(isBPresent == true){
        let counter = 1;
        for(let i = 0 ; i < contentArr.length ; i++){
             if(contentArr[i] != ""){
@@ -111,7 +111,7 @@ function bcommand(){
        console.log("AFTER IMPLEMENTING -B COMMAND");
        console.log(contentArr.join("\n")); 
     }
-}
+// }
 let indexOfN = optionsArr.indexOf("-n");
 let indexOfB = optionsArr.indexOf("-b");
 let finaloption = "";
