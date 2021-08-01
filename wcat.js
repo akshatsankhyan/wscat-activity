@@ -11,7 +11,8 @@
 
 // Commands:
 // 1- node wcat.js filepath => displays content of the file in the terminal 
-// 2- node wcat.js filepath1 filepath2 filepath3... => displays content of all files in the terminal in (contactinated form) in the given order.
+// 2- node wcat.js filepath1 filepath2 filepath3... => displays content of all files in the terminal 
+//in (contactinated form) in the given order.
 // 3- node wcat.js -s filepath => convert big line breaks into a singular line break
 // 4- node wcat.js -n filepath => give numbering to all the lines 
 // 5- node wcat -b filepath => give numbering to non-empty lines
@@ -19,7 +20,9 @@
 
 // Edge cases:
 // 1- If file entered is not found then it gives file does not exist error.
-// 2- -n and -b are 2 options which are mutually exclusive so if user types both of them together only the first enter option should work
+// 2- -n and -b are 2 options which are mutually exclusive so if user types both of them together 
+//only the first enter option should work.
+// 3- 
 
 let fs = require("fs");
 
@@ -37,11 +40,11 @@ for(let i = 0 ; i < inputArr.length ; i++){
         filesArr.push(inputArr[i]);
     }
 }
-let isBothPresent = optionsArr.includes("-n") && optionsArr.includes("-b");
-if(isBothPresent == true){
-    console.log("EITHER ENTER -n OR -b COMMAND");
-    return;
-}
+// let isBothPresent = optionsArr.includes("-n") && optionsArr.includes("-b");
+// if(isBothPresent == true){
+//     console.log("EITHER ENTER -n OR -b COMMAND");
+//     return;
+// }
 
 // 2. MANAGING FIRST TWO COMMANDS
 let content = "";
@@ -83,29 +86,55 @@ if(isSPresent == true){
 
 
 // 4. IMPLEMENTING -N COMMAND
-let isNPresent = optionsArr.includes("-n");
-if(isNPresent == true){
-    for(let i = 0 ; i < contentArr.length ; i++){
-        contentArr[i] = `${i + 1} ${contentArr[i]} `;
-    }
-    console.log("AFTER IMPLEMENTING -N COMMAND");
-    console.log(contentArr.join("\n"));
+function ncommand(){
+    let isNPresent = optionsArr.includes("-n");
+      if(isNPresent == true){
+      for(let i = 0 ; i < contentArr.length ; i++){
+          contentArr[i] = `${i + 1} ${contentArr[i]} `;
+        }
+        console.log("AFTER IMPLEMENTING -N COMMAND");
+        console.log(contentArr.join("\n"));
+     }
 }
 
-
 // 5 . IMPLEMENTING -B COMMAND
-let isBPresent = optionsArr.includes("-b");
-if(isBPresent == true){
-    let counter = 1;
-    for(let i = 0 ; i < contentArr.length ; i++){
-        if(contentArr[i] != ""){
+function bcommand(){
+    let isBPresent = optionsArr.includes("-b");
+    if(isBPresent == true){
+       let counter = 1;
+       for(let i = 0 ; i < contentArr.length ; i++){
+            if(contentArr[i] != ""){
             contentArr[i] = `${counter} ${contentArr[i]}`;
             counter++;
         }
     }
-    console.log("AFTER IMPLEMENTING -B COMMAND");
-    console.log(contentArr.join("\n"));
+       console.log("AFTER IMPLEMENTING -B COMMAND");
+       console.log(contentArr.join("\n")); 
+    }
 }
-
-
+let indexOfN = optionsArr.indexOf("-n");
+let indexOfB = optionsArr.indexOf("-b");
+let finaloption = "";
+if(indexOfB > -1 && indexOfN > -1){
+    if(indexOfN < indexOfB){
+        finaloption = "-n";
+    }
+    else{
+        finaloption = "-b";
+    }
+}
+else{
+    if(indexOfN > -1){
+        finaloption = "-n";
+    }
+    else if(indexOfB > -1){
+        finaloption = "-b";
+    }
+}
+if(finaloption == "-n"){
+    ncommand();
+}
+else if(finaloption == "-b"){
+    bcommand();
+}
 
